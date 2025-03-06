@@ -9,6 +9,8 @@ const Register: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -29,6 +31,8 @@ const Register: React.FC = () => {
       const { token, user } = await authApi.register({ 
         username, 
         email, 
+        firstName,
+        lastName,
         password,
         confirmPassword 
       });
@@ -57,6 +61,14 @@ const Register: React.FC = () => {
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+  };
+
+  const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setLastName(e.target.value);
   };
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -143,6 +155,42 @@ const Register: React.FC = () => {
               placeholder="E-postadress"
               value={email}
               onChange={handleEmailChange}
+              className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-green-400 dark:focus:border-green-300 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              required
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="relative flex items-center mt-4">
+            <span className="absolute">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </span>
+
+            <Input
+              type="text"
+              placeholder="Förnamn"
+              value={firstName}
+              onChange={handleFirstNameChange}
+              className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-green-400 dark:focus:border-green-300 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              required
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="relative flex items-center mt-4">
+            <span className="absolute">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </span>
+
+            <Input
+              type="text"
+              placeholder="Efternamn"
+              value={lastName}
+              onChange={handleLastNameChange}
               className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-green-400 dark:focus:border-green-300 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40"
               required
               disabled={isLoading}

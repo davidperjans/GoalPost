@@ -27,14 +27,14 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, AuthResponseDto
     {
         var loginDto = request.LoginDto;
 
-        // Find user by username
-        var user = await _userRepository.GetByUserNameAsync(loginDto.UserName);
+        // Find user by email
+        var user = await _userRepository.GetByEmailAsync(loginDto.Email);
         if (user == null)
         {
             return new AuthResponseDto
             {
                 Success = false,
-                Message = "Invalid username or password"
+                Message = "Felaktig e-postadress eller lösenord"
             };
         }
 
@@ -44,7 +44,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, AuthResponseDto
             return new AuthResponseDto
             {
                 Success = false,
-                Message = "Account is deactivated"
+                Message = "Kontot är inaktiverat"
             };
         }
 
@@ -55,7 +55,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, AuthResponseDto
             return new AuthResponseDto
             {
                 Success = false,
-                Message = "Invalid username or password"
+                Message = "Felaktig e-postadress eller lösenord"
             };
         }
 
@@ -69,7 +69,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, AuthResponseDto
         return new AuthResponseDto
         {
             Success = true,
-            Message = "Login successful",
+            Message = "Inloggning lyckades",
             Token = token,
             User = new UserDto
             {

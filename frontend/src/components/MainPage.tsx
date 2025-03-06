@@ -10,7 +10,9 @@ const MainPage: React.FC = () => {
   const [user, setUser] = useState(store.getState().user);
 
   useEffect(() => {
+    console.log('Initial user state:', store.getState().user);
     const unsubscribe = store.subscribe((state) => {
+      console.log('User state updated:', state.user);
       setUser(state.user);
     });
 
@@ -18,9 +20,12 @@ const MainPage: React.FC = () => {
   }, []);
 
   if (!user) {
+    console.log('No user found, redirecting to login');
     navigate('/login');
     return null;
   }
+
+  console.log('Current user in render:', user);
 
   const handleLogout = () => {
     store.getState().logout();

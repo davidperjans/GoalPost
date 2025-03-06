@@ -18,7 +18,13 @@ public class JwtService
 
     public string GenerateJwtToken(User user)
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+        // Skapa en nyckel som är minst 256 bitar (32 bytes)
+        var key = new byte[32];
+        using (var rng = System.Security.Cryptography.RandomNumberGenerator.Create())
+        {
+            rng.GetBytes(key);
+        }
+        var securityKey = new SymmetricSecurityKey(key);
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var claims = new[]

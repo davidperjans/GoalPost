@@ -16,6 +16,17 @@ public class ApplicationDbContext : IdentityDbContext<User>
     {
         base.OnModelCreating(builder);
 
+        builder.Entity<User>(entity =>
+        {
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .IsRequired();
+        });
+
         // Här kan vi lägga till konfigurationer för våra entiteter senare
         // Till exempel:
         // builder.Entity<Goal>().HasOne(g => g.User).WithMany(u => u.Goals)
